@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AEPOS.PriceCheck.Pages.test"
+             HideSoftInputOnTapped="True"
+             NavigationPage.HasNavigationBar="False">
+    <Grid Margin="0" Padding="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".3*"/>
+            <RowDefinition/>
+            <RowDefinition Height=".3*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=".2*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width=".2*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Top-Left Triangle -->
+
+        <Frame Grid.Row="0" BorderColor="Transparent" CornerRadius="0" Grid.Column="0" Padding="0">
+            <Button Text="00" BackgroundColor="Red" CornerRadius="0" Rotation="50" Margin="-50,-200,30,0"/>
+        </Frame>
+
+        <Label Grid.Row="0" Grid.Column="1" Text="01" BackgroundColor="LightCoral"/>
+
+        <Frame Grid.Row="0" BorderColor="Red" CornerRadius="0" Grid.Column="2" Padding="0">
+            <Button Text="02" BackgroundColor="Red" CornerRadius="0"/>
+        </Frame>
+
+        <Label Grid.Row="1" Grid.Column="0" Text="10" BackgroundColor="LightGoldenrodYellow"/>
+
+        <VerticalStackLayout Grid.Row="1" Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <Grid Margin="10" RowSpacing="10" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <!-- First Row Content -->
+                <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10" Grid.Row="0" Grid.Column="0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="70"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+
+                    <Label Grid.Row="0" Grid.Column="0" Text="1" BackgroundColor="LightBlue" WidthRequest="100"/>
+                    <Label Grid.Row="0" Grid.Column="1" Text="2" BackgroundColor="LightCoral" WidthRequest="500"/>
+                    <Label Grid.Row="0" Grid.Column="2" Text="3" BackgroundColor="LightCyan" WidthRequest="100"/>
+                </HorizontalStackLayout>
+                <!-- Second Row Content -->
+                <VerticalStackLayout Grid.Row="1" Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <Label Text="11" BackgroundColor="LightCyan" HeightRequest="400"/>
+                </VerticalStackLayout>
+            </Grid>
+        </VerticalStackLayout>
+
+        <Label Grid.Row="1" Grid.Column="2" Text="12" BackgroundColor="LightSalmon"/>
+
+        <Frame Grid.Row="2" BorderColor="Red" CornerRadius="0" Grid.Column="0" Padding="0">
+            <Button Text="20" BackgroundColor="Red" CornerRadius="0"/>
+        </Frame>
+
+        <Label Grid.Row="2" Grid.Column="1" Text="21" BackgroundColor="LightPink"/>
+
+        <Frame Grid.Row="2" BorderColor="Red" CornerRadius="0" Grid.Column="2" Padding="0">
+            <Button Text="22" BackgroundColor="Red" CornerRadius="0"/>
+        </Frame>
+    </Grid>
+</ContentPage>

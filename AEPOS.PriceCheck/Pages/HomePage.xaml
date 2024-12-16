@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AEPOS.PriceCheck.Pages.HomePage"
+             xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
+             android:Application.WindowSoftInputModeAdjust="Pan"
+             HideSoftInputOnTapped="True"
+             xmlns:popup="clr-namespace:AEPOS.PriceCheck.PopUpPages"
+             NavigationPage.HasNavigationBar="False">
+
+    <ContentPage.Resources>
+
+        <Style x:Key="btnStyle" TargetType="Button">
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="HeightRequest" Value="60" />
+            <Setter Property="FontSize" Value="25" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="VerticalOptions" Value="Center" />
+
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid Margin="0" Padding="0">        <Grid.RowDefinitions>            <RowDefinition Height=".2*"/>            <RowDefinition />            <RowDefinition Height=".2*"/>        </Grid.RowDefinitions>        <Grid.ColumnDefinitions>            <ColumnDefinition Width=".1*"/>            <ColumnDefinition />            <ColumnDefinition Width=".1*"/>        </Grid.ColumnDefinitions>            <popup:LoadingPopup x:Name="loadingpopup"  Grid.Row="1" Grid.Column="1"/>
+        <Label  x:Name="storename" Grid.Row="0" Grid.Column="1" 
+        FontSize="28"
+        FontAttributes="Bold"
+        TextColor="#333333"
+        VerticalOptions="Center" 
+        HorizontalOptions="Center"  />        <Frame Grid.Row="0" Grid.Column="0"         BorderColor="{StaticResource _red}"         CornerRadius="0"        Margin="-50,-180,0,0"        HeightRequest="200"        WidthRequest="350"        Rotation="140"         Padding="0"        BackgroundColor="{StaticResource _red}">            <Button Clicked="topleftbtn_click" BackgroundColor="{StaticResource _red}"/>        </Frame>        <Frame Grid.Row="0" Grid.Column="2"         BorderColor="{StaticResource _red}"         Rotation="140"        CornerRadius="0"        Margin="10,-185,-160,20"        HeightRequest="300"        Padding="0"        WidthRequest="300"        BackgroundColor="{StaticResource _red}">            <Button Clicked="toprightbtn_click" BackgroundColor="{StaticResource _red}"/>        </Frame>        <Frame Grid.Row="2" Grid.Column="0"        BorderColor="{StaticResource _red}"         Rotation="-140"        CornerRadius="0"        Margin="-200,0,-150,-150"        HeightRequest="200"        Padding="0"        WidthRequest="300"        BackgroundColor="{StaticResource _red}">            <Button Clicked="bottomleftbtn_click" BackgroundColor="{StaticResource _red}"/>        </Frame>        <Frame Grid.Row="2" Grid.Column="2"         BorderColor="{StaticResource _red}"         Rotation="140"        CornerRadius="0"        Margin="-200,0,-250,-150"        HeightRequest="200"        Padding="0"        WidthRequest="300"        BackgroundColor="{StaticResource _red}">            <Button Clicked="bottomrightbtn_click" BackgroundColor="{StaticResource _red}"/>        </Frame>        <VerticalStackLayout Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" HorizontalOptions="Center" VerticalOptions="Center">
+            <Grid HorizontalOptions="Center" RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <HorizontalStackLayout Grid.Row="0" Grid.Column="0" Spacing="10" VerticalOptions="Center" HorizontalOptions="Center">
+                    <Grid ColumnSpacing="10" RowSpacing="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <ImageButton Grid.Row="0" Grid.Column="0"
+                            Clicked="keyboardbtn_clicked"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Start"
+                            WidthRequest="115"
+                            HeightRequest="100"
+                            BackgroundColor="{StaticResource _white}"
+                            Source="keyboard.png"/>
+
+                        <Frame Grid.Row="0" Grid.Column="1" CornerRadius="8" 
+                           BorderColor="Green" 
+                           BackgroundColor="#FFFFFF"
+                           Padding="10,0,0,0"
+                           HeightRequest="70"
+                           WidthRequest="400"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center">
+                            <Entry x:Name="SearchEntry" 
+                            Placeholder="Search"
+                            PlaceholderColor="{StaticResource _black}"
+                            FontSize="30"
+                            Margin="0,0,50,0"
+                            TextColor="#333333"
+                            BackgroundColor="Transparent"
+                            Keyboard="Text"
+                            TextChanged="SearchItemName"/>
+                        </Frame>
+
+                        <ImageButton Grid.Row="0" Grid.Column="2" 
+                            Margin="0,0,20,0"  
+                            x:Name="refreshButton"
+                            Clicked="RefreshButton_Clicked"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Start"
+                            WidthRequest="100"
+                            HeightRequest="100"
+                            BackgroundColor="{StaticResource _white}"
+                            Source="refreshimg.png"/>
+                    </Grid>
+                </HorizontalStackLayout>
+
+                <VerticalStackLayout Grid.Row="1" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center">
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+
+                    <!-- Detail Section -->
+                    <Frame x:Name="detailSection" BorderColor="Transparent" IsVisible="False" WidthRequest="900" HeightRequest="500" HorizontalOptions="Center" VerticalOptions="Center">
+                        <ScrollView VerticalScrollBarVisibility="Never">
+                            <Grid RowDefinitions="Auto" ColumnDefinitions=".6*,Auto,.2*">
+                                <!-- Left Side -->
+                                <VerticalStackLayout Grid.Row="0" Grid.Column="0" Padding="10" Spacing="10" HorizontalOptions="Start" VerticalOptions="Start">
+                                    <Label x:Name="lblName" Text="Name : " TextColor="{StaticResource _dark_blue}" FontAttributes="Bold" FontSize="36" 
+                       HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+
+                                    <HorizontalStackLayout x:Name="lblRegPrice" HorizontalOptions="Center" VerticalOptions="Center">
+                                        <Label x:Name="CurrencySymbol1" Text="" TextColor="{StaticResource _green}" FontAttributes="Bold" FontSize="30" 
+                           HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                        <Label x:Name="valueRegPrice" LineBreakMode="WordWrap" Text="" TextColor="{StaticResource _green}" FontAttributes="Bold" FontSize="30" 
+                           HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                    </HorizontalStackLayout>
+
+                                    <HorizontalStackLayout x:Name="lblSalePrice" HorizontalOptions="Center" VerticalOptions="Center">
+                                        <Label x:Name="valueSalePrice" LineBreakMode="WordWrap" Text="" TextColor="{StaticResource _red}" FontAttributes="Bold" FontSize="25" 
+                           WidthRequest="350" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                    </HorizontalStackLayout>
+
+                                    <HorizontalStackLayout x:Name="lblDepName" HorizontalOptions="Center" VerticalOptions="Center">
+                                        <Label Text="Department : " TextColor="{StaticResource _black}" FontAttributes="Bold" FontSize="20" 
+                           HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                        <Label x:Name="valueDepName" LineBreakMode="WordWrap" Text="" TextColor="{StaticResource _black}" FontAttributes="Bold" FontSize="20" 
+                           HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                    </HorizontalStackLayout>
+
+                                    <HorizontalStackLayout x:Name="lblSizeName" HorizontalOptions="Center" VerticalOptions="Center">
+                                        <Label Text="Size Name : " TextColor="{StaticResource _black}" FontAttributes="Bold" FontSize="20" 
+                           HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                        <Label x:Name="valuesizeName" LineBreakMode="WordWrap" Text="" TextColor="{StaticResource _black}" FontAttributes="Bold" FontSize="20" 
+                           HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                    </HorizontalStackLayout>
+
+                                    <HorizontalStackLayout x:Name="lblPackName" HorizontalOptions="Center" VerticalOptions="Center">
+                                        <Label Text="Pack Name : " TextColor="{StaticResource _black}" FontAttributes="Bold" FontSize="20" 
+                           HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                        <Label x:Name="valuePackName" LineBreakMode="WordWrap" Text="" TextColor="{StaticResource _black}" FontAttributes="Bold" FontSize="20" 
+                           HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                    </HorizontalStackLayout>
+
+                                    <HorizontalStackLayout x:Name="lblCatName" HorizontalOptions="Center" VerticalOptions="Center">
+                                        <Label Text="Cat Name : " TextColor="{StaticResource _black}" FontAttributes="Bold" FontSize="20" 
+                           HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                        <Label x:Name="valueCatName" LineBreakMode="WordWrap" Text="" TextColor="{StaticResource _black}" FontAttributes="Bold" FontSize="20" 
+                           HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                    </HorizontalStackLayout>
+
+                                    <HorizontalStackLayout x:Name="lblDescription" HorizontalOptions="Center" VerticalOptions="Center">
+                                        <Label Text="Description : " TextColor="{StaticResource _black}" FontAttributes="Bold" FontSize="20" 
+                           HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                        <Label x:Name="valueDescription" LineBreakMode="WordWrap" Text="" TextColor="{StaticResource _black}" FontAttributes="Bold" FontSize="20" 
+                           WidthRequest="250" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                    </HorizontalStackLayout>
+
+                                    <HorizontalStackLayout x:Name="lblLocation" HorizontalOptions="Center" VerticalOptions="Center">
+                                        <Label Text="Location : " TextColor="{StaticResource _black}" FontAttributes="Bold" FontSize="20" 
+                           HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                        <Label x:Name="valueLocation" LineBreakMode="WordWrap" Text="" TextColor="{StaticResource _black}" FontAttributes="Bold" FontSize="20" 
+                           HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                    </HorizontalStackLayout>
+                                </VerticalStackLayout>
+
+                                <BoxView Grid.Row="0" Grid.Column="1" HeightRequest="350" WidthRequest="2" BackgroundColor="{StaticResource _black}" 
+                     HorizontalOptions="Center" VerticalOptions="Fill" />
+
+                                <!-- Right Side -->
+                                <VerticalStackLayout Grid.Row="0" Grid.Column="2" Spacing="10" Padding="10" HorizontalOptions="Center" VerticalOptions="Center">
+                                    <Label x:Name="lblstrUPC" Text="UPC" TextColor="{StaticResource _red}" FontAttributes="Bold" FontSize="30" 
+                       HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                    <Label x:Name="valuestrUPC" Text="" TextColor="{StaticResource _dark_blue}" FontAttributes="Bold" FontSize="28" 
+                       HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                </VerticalStackLayout>
+                            </Grid>
+                        </ScrollView>
+                    </Frame>
+
+                    <Frame Grid.Row="0" Grid.Column="1" WidthRequest="500" Margin="0,-55,0,0" BackgroundColor="Transparent" BorderColor="Transparent" HeightRequest="250" ZIndex="20">
+                        <ScrollView x:Name="listSection" IsVisible="False">
+                            <CollectionView x:Name="MyCollectionView"
+                                WidthRequest="400"
+                                HeightRequest="150"
+                                VerticalOptions="FillAndExpand"
+                            ItemsSource="{Binding Items}">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Frame BorderColor="Gray">
+                                            <VerticalStackLayout Spacing="1">
+                                                <Label Text="{Binding value}" 
+                                       FontAttributes="Bold"
+                                       FontSize="15" />
+                                            </VerticalStackLayout>
+                                            <Frame.GestureRecognizers>
+                                                <TapGestureRecognizer 
+                                        Tapped="OnItemTapped" 
+                                        CommandParameter="{Binding ID}" />
+                                            </Frame.GestureRecognizers>
+                                        </Frame>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </ScrollView>
+                    </Frame>
+
+                    <!-- Introductory Layout -->
+                    <VerticalStackLayout x:Name="introSection" Margin="0,-100,0,0" IsVisible="True" Spacing="10" Padding="20" VerticalOptions="Center" HorizontalOptions="Center" >
+                        <Label x:Name="lblneedprice"
+                        Text="Need a Price ??" 
+                        TextColor="{StaticResource _red}" 
+                        FontSize="70" VerticalOptions="Center" HorizontalOptions="Center"
+                        FontAttributes="Bold"/>
+                        <Label Text="Simply scan your item here..." 
+                        TextColor="{StaticResource _black}" VerticalOptions="Center" HorizontalOptions="Center"
+                        FontSize="30" 
+                        FontAttributes="Bold"/>
+                    </VerticalStackLayout>
+
+                    <!--keyboad section-->
+                    <Border x:Name="KeyboardLayout" IsVisible="False" Margin="0,-50,0,0" Stroke="#717171" StrokeThickness="2" BackgroundColor="#FFFFFF">
+                        <Grid Padding="5" RowSpacing="5" WidthRequest="700">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <VerticalStackLayout Grid.Row="2">
+                                <Grid ColumnSpacing="5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button x:Name="num1" Text="1" Grid.Column="0" Style="{StaticResource btnStyle}" BackgroundColor="Gray"  Clicked="OnKeyClicked"/>
+                                    <Button x:Name="num2" Text="2" Grid.Column="1" Style="{StaticResource btnStyle}" BackgroundColor="Gray"  Clicked="OnKeyClicked"/>
+                                    <Button x:Name="num3" Text="3" Grid.Column="2" Style="{StaticResource btnStyle}" BackgroundColor="Gray"  Clicked="OnKeyClicked"/>
+                                    <Button x:Name="num4" Text="4" Grid.Column="3" Style="{StaticResource btnStyle}" BackgroundColor="Gray"  Clicked="OnKeyClicked"/>
+                                    <Button x:Name="num5" Text="5" Grid.Column="4" Style="{StaticResource btnStyle}" BackgroundColor="Gray" Clicked="OnKeyClicked"/>
+                                    <Button x:Name="num6" Text="6" Grid.Column="5" Style="{StaticResource btnStyle}" BackgroundColor="Gray" Clicked="OnKeyClicked"/>
+                                    <Button x:Name="num7" Text="7" Grid.Column="6" Style="{StaticResource btnStyle}" BackgroundColor="Gray"  Clicked="OnKeyClicked"/>
+                                    <Button x:Name="num8" Text="8" Grid.Column="7" Style="{StaticResource btnStyle}" BackgroundColor="Gray"  Clicked="OnKeyClicked"/>
+                                    <Button x:Name="num9" Text="9" Grid.Column="8" Style="{StaticResource btnStyle}" BackgroundColor="Gray"  Clicked="OnKeyClicked"/>
+                                    <Button x:Name="num0" Text="0" Grid.Column="9" Style="{StaticResource btnStyle}" BackgroundColor="Gray"  Clicked="OnKeyClicked"/>
+                                    <Button  Text="Back" Grid.Column="10" FontAttributes="Bold" FontSize="22" BackgroundColor="Red" Clicked="Backspace_Tap"/>
+                                </Grid>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Row="3">
+                                <Grid ColumnSpacing="5" RowSpacing="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button x:Name="LetQ" Text="q" Style="{StaticResource btnStyle}" Grid.Row="0"  Grid.Column="0" Clicked="OnKeyClicked"/>
+                                    <Button x:Name="LetW" Text="w" Style="{StaticResource btnStyle}" Grid.Row="0"  Grid.Column="1" Clicked="OnKeyClicked"/>
+                                    <Button x:Name="LetE" Text="e" Style="{StaticResource btnStyle}" Grid.Row="0"  Grid.Column="2" Clicked="OnKeyClicked"/>
+                                    <Button x:Name="LetR" Text="r" Style="{StaticResource btnStyle}" Grid.Row="0"  Grid.Column="3" Clicked="OnKeyClicked"/>
+                                    <Button x:Name="LetT" Text="t" Style="{StaticResource btnStyle}" Grid.Row="0"  Grid.Column="4" Clicked="OnKeyClicked"/>
+                                    <Button x:Name="LetY" Text="y" Style="{StaticResource btnStyle}" Grid.Row="0"  Grid.Column="5" Clicked="OnKeyClicked"/>
+                                    <Button x:Name="LetU" Text="u" Style="{StaticResource btnStyle}" Grid.Row="0"  Grid.Column="6" Clicked="OnKeyClicked"/>
+                                    <Button x:Name="LetI" Text="i" Style="{StaticResource btnStyle}" Grid.Row="0"  Grid.Column="7" Clicked="OnKeyClicked"/>
+                                    <Button x:Name="LetO" Text="o" Style="{StaticResource btnStyle}" Grid.Row="0"  Grid.Column="8" Clicked="OnKeyClicked"/>
+                                    <Button x:Name="LetP" Text="p" Style="{StaticResource btnStyle}" Grid.Row="0"  Grid.Column="9" Clicked="OnKeyClicked"/>
+                                    <!--<Button Text="Enter" Grid.Row="0"  Grid.Column="10" BackgroundColor="Teal"/>-->
+
+                                    <Button x:Name="btnCaps" Text="C" Grid.Row="1" FontAttributes="Bold" FontSize="22" Grid.Column="0" BackgroundColor="Teal" Clicked="CapsLock_Tap" />
+                                    <Button  x:Name="LetA" Text="a" Style="{StaticResource btnStyle}" Grid.Row="1"  Grid.Column="1" Clicked="OnKeyClicked"/>
+                                    <Button  x:Name="LetS" Text="s" Style="{StaticResource btnStyle}" Grid.Row="1"  Grid.Column="2" Clicked="OnKeyClicked"/>
+                                    <Button  x:Name="LetD" Text="d" Style="{StaticResource btnStyle}" Grid.Row="1"  Grid.Column="3" Clicked="OnKeyClicked"/>
+                                    <Button  x:Name="LetF" Text="f" Style="{StaticResource btnStyle}" Grid.Row="1"  Grid.Column="4" Clicked="OnKeyClicked"/>
+                                    <Button  x:Name="LetG" Text="g" Style="{StaticResource btnStyle}" Grid.Row="1"  Grid.Column="5" Clicked="OnKeyClicked"/>
+                                    <Button  x:Name="LetH" Text="h" Style="{StaticResource btnStyle}" Grid.Row="1"  Grid.Column="6" Clicked="OnKeyClicked"/>
+                                    <Button  x:Name="LetJ" Text="j" Style="{StaticResource btnStyle}" Grid.Row="1"  Grid.Column="7" Clicked="OnKeyClicked"/>
+                                    <Button  x:Name="LetK" Text="k" Style="{StaticResource btnStyle}" Grid.Row="1"  Grid.Column="8" Clicked="OnKeyClicked"/>
+                                    <Button  x:Name="LetL" Text="l" Style="{StaticResource btnStyle}" Grid.Row="1"  Grid.Column="9" Clicked="OnKeyClicked"/>
+                                    <Button Text="Enter" Clicked="Enter_Button_Clicked" FontAttributes="Bold" FontSize="25" Grid.Row="0" Grid.RowSpan="2" Grid.Column="10"   BackgroundColor="Orange"/>
+                                </Grid>
+
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Row="4">
+                                <Grid ColumnSpacing="5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button x:Name="btnShift" Text="S" Grid.Column="0" FontAttributes="Bold" FontSize="22" BackgroundColor="Teal" Clicked="OnKeyShift"/>
+                                    <Button  x:Name="LetZ" Text="z" Style="{StaticResource btnStyle}" Grid.Column="1"  Clicked="OnKeyClicked"/>
+                                    <Button  x:Name="LetX" Text="x" Style="{StaticResource btnStyle}" Grid.Column="2" Clicked="OnKeyClicked"/>
+                                    <Button  x:Name="LetC" Text="c" Style="{StaticResource btnStyle}" Grid.Column="3" Clicked="OnKeyClicked"/>
+                                    <Button  x:Name="LetV" Text="v" Style="{StaticResource btnStyle}" Grid.Column="4" Clicked="OnKeyClicked"/>
+                                    <Button  x:Name="LetB" Text="b" Style="{StaticResource btnStyle}" Grid.Column="5" Clicked="OnKeyClicked"/>
+                                    <Button  x:Name="LetN" Text="n" Style="{StaticResource btnStyle}" Grid.Column="6" Clicked="OnKeyClicked"/>
+                                    <Button  x:Name="LetM" Text="m" Style="{StaticResource btnStyle}" Grid.Column="7" Clicked="OnKeyClicked"/>
+                                    <Button Text="," Grid.Column="8" Style="{StaticResource btnStyle}" Clicked="OnKeyClicked"/>
+                                    <Button Text="." Grid.Column="9" Style="{StaticResource btnStyle}" Clicked="OnKeyClicked"/>
+                                    <Button Text="@" Grid.Column="10" Style="{StaticResource btnStyle}" Clicked="OnKeyClicked"/>
+                                    <Button Text="_" Grid.Column="11" Style="{StaticResource btnStyle}" Clicked="OnKeyClicked"/>
+                                </Grid>
+
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Row="5">
+                                <Grid ColumnSpacing="5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button Text="Clear" Style="{StaticResource btnStyle}" Grid.Column="0" BackgroundColor="Red" Clicked="OnKeyClear"/>
+                                    <Button Text=" " Style="{StaticResource btnStyle}" Grid.Column="1" BackgroundColor="Teal" Clicked="OnKeyClicked"/>
+                                    <Button Text="Close" Style="{StaticResource btnStyle}" Grid.Column="2" BackgroundColor="Red" Clicked="HomeBtnCloseKeyboard"/>
+                                </Grid>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
+                    <!--keyboar section end-->
+                </VerticalStackLayout>
+
+            </Grid>
+        </VerticalStackLayout>    </Grid>
+</ContentPage>

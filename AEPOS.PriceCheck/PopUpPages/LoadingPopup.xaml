@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AEPOS.PriceCheck.PopUpPages.LoadingPopup"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui" >
+    <telerik:RadPopup.Popup>
+        <telerik:RadPopup x:Name="popup"
+         HorizontalOffset="0"
+         VerticalOffset="0"
+         IsModal="True"
+         Placement="Center"
+         AnimationType="Fade"
+         OutsideBackgroundColor="#6F000000">
+            <telerik:RadBorder CornerRadius="30" 
+           BackgroundColor="White" WidthRequest="250" HeightRequest="250" Padding="0,0,0,25">
+                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                    <Image Source="loading.gif" 
+                       HeightRequest="200" 
+                       WidthRequest="200" 
+                       IsAnimationPlaying="True"
+                       HorizontalOptions="Center" 
+                       VerticalOptions="Center"/>
+
+                    <!--<Image Source="barcode_scan.png" IsAnimationPlaying="True" HeightRequest="200" WidthRequest="200"/>-->
+                    <Label x:Name="AnimatedLabel" FontAutoScalingEnabled="False"  Text="Please Wait..." VerticalOptions="Center" FontAttributes="Bold" FontSize="18" HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </telerik:RadBorder>
+        </telerik:RadPopup>
+    </telerik:RadPopup.Popup>
+</ContentView>

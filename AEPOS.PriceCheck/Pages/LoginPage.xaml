@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AEPOS.PriceCheck.Pages.LoginPage"
+             BackgroundColor="#F5F5F5"      
+             xmlns:popup="clr-namespace:AEPOS.PriceCheck.PopUpPages"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
+             NavigationPage.HasNavigationBar="False"
+             Padding="0">
+
+    <ContentPage.Resources>
+        <!--<Style x:Key="BorderStyle" TargetType="telerik:RadBorder">
+            <Setter Property="BorderColor" Value="DarkGray" />
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="HeightRequest" Value="50" />
+            <Setter Property="Margin" Value="15" />
+        </Style>-->
+
+        <Style x:Key="btnStyle" TargetType="Button">
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="HeightRequest" Value="60" />
+            <Setter Property="FontSize" Value="25" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid>
+
+
+            <Grid Margin="0,-100,0,0" x:Name="mainLoginPage"
+              RowDefinitions="*, 2*"
+              ColumnDefinitions="1*, 1*">
+
+                <Frame  Grid.RowSpan="2" Grid.ColumnSpan="2"
+                   HorizontalOptions="Center" 
+                   VerticalOptions="Center"
+                     BorderColor="#F5F5F5"      
+                   BackgroundColor="Transparent">
+                    <popup:LoadingPopup x:Name="loadingpopup"/>
+                </Frame>
+                <!-- Logo Section -->
+                <Image  x:Name="mainlogo"
+                    IsVisible="True"
+                    Source="pricechecklogin.png" 
+                   Aspect="AspectFit"
+                   Grid.Row="0" 
+                   Grid.ColumnSpan="2"
+                   Margin="0,-250,0,0"
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"
+                   HeightRequest="130" />
+
+                <!-- Login Form Section -->
+                <VerticalStackLayout Grid.Row="1" 
+                                 Grid.Column="0" 
+                                 Grid.ColumnSpan="2"
+                                 Spacing="20"
+                                 HorizontalOptions="Center"
+                                 VerticalOptions="Start">
+                    <!-- Page Title -->
+                    <Label Text="PriceCheckMate"
+                       FontSize="28"
+                       FontAttributes="Bold"
+                       TextColor="#333333"
+                       HorizontalOptions="Center" />
+
+                    <HorizontalStackLayout Spacing="20" HorizontalOptions="Center" VerticalOptions="Center">
+
+                        <!-- Entry for Store Code -->
+                        <Frame CornerRadius="8" 
+                       BorderColor="Green" 
+                       BackgroundColor="#FFFFFF"
+                       Padding="0"
+                       HeightRequest="50"
+                       WidthRequest="300"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center">
+                            <Entry x:Name="entryGUID"
+                       Placeholder="Enter Store Code"
+                       FontSize="18"
+                       TextColor="Black"
+                       Keyboard="Text"
+                       ClearButtonVisibility="WhileEditing" />
+                        </Frame>
+
+                        <!-- Keyboard Button with Image -->
+                        <Frame BorderColor="Green"
+                           CornerRadius="8"
+                           Padding="0"
+                           BackgroundColor="#FFFFFF"
+                           HeightRequest="50"
+                           WidthRequest="80"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center">
+                            <ImageButton Clicked="Login_keyboardbtn_clicked"
+                            BackgroundColor="Transparent"
+                            Padding="0"
+                            BorderWidth="0"
+                            WidthRequest="80"
+                            HeightRequest="50"
+                            Aspect="AspectFit"
+                            Source="keyboard.png"/>
+                        </Frame>
+
+                    </HorizontalStackLayout>
+
+                    <!-- Login Button -->
+                    <Button Text="Login"
+                        FontSize="18"
+                        TextColor="#FFFFFF"
+                        BackgroundColor="#007AFF"
+                        HeightRequest="50"
+                        WidthRequest="400"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        CornerRadius="25"
+                        Clicked="ValidateStoreCode" />
+
+                    <!--keyboad section-->
+                    <Border x:Name="Login_KeyboardLayout" IsVisible="False" Margin="0,0,0,0" Stroke="#717171" StrokeThickness="2" BackgroundColor="#FFFFFF">
+                        <!--<Border.Shadow>
+                        <Shadow Brush="#A3A3A3" Offset="0,0"/>
+                    </Border.Shadow>-->
+                        <Grid Padding="5" RowSpacing="5" WidthRequest="700">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <VerticalStackLayout Grid.Row="2">
+                                <Grid ColumnSpacing="5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button x:Name="num1" Text="1" Grid.Column="0" Style="{StaticResource btnStyle}" BackgroundColor="Gray"  Clicked="OnKeyClicked"/>
+                                    <Button x:Name="num2" Text="2" Grid.Column="1" Style="{StaticResource btnStyle}" BackgroundColor="Gray"  Clicked="OnKeyClicked"/>
+                                    <Button x:Name="num3" Text="3" Grid.Column="2" Style="{StaticResource btnStyle}" BackgroundColor="Gray"  Clicked="OnKeyClicked"/>
+                                    <Button x:Name="num4" Text="4" Grid.Column="3" Style="{StaticResource btnStyle}" BackgroundColor="Gray"  Clicked="OnKeyClicked"/>
+                                    <Button x:Name="num5" Text="5" Grid.Column="4" Style="{StaticResource btnStyle}" BackgroundColor="Gray" Clicked="OnKeyClicked"/>
+                                    <Button x:Name="num6" Text="6" Grid.Column="5" Style="{StaticResource btnStyle}" BackgroundColor="Gray" Clicked="OnKeyClicked"/>
+                                    <Button x:Name="num7" Text="7" Grid.Column="6" Style="{StaticResource btnStyle}" BackgroundColor="Gray"  Clicked="OnKeyClicked"/>
+                                    <Button x:Name="num8" Text="8" Grid.Column="7" Style="{StaticResource btnStyle}" BackgroundColor="Gray"  Clicked="OnKeyClicked"/>
+                                    <Button x:Name="num9" Text="9" Grid.Column="8" Style="{StaticResource btnStyle}" BackgroundColor="Gray"  Clicked="OnKeyClicked"/>
+                                    <Button x:Name="num0" Text="0" Grid.Column="9" Style="{StaticResource btnStyle}" BackgroundColor="Gray"  Clicked="OnKeyClicked"/>
+                                    <Button  Text="Back" Grid.Column="10" FontAttributes="Bold" FontSize="22" BackgroundColor="Red" Clicked="Backspace_Tap"/>
+                                </Grid>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Row="3">
+                                <Grid ColumnSpacing="5" RowSpacing="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button x:Name="LetQ" Text="q" Style="{StaticResource btnStyle}" Grid.Row="0"  Grid.Column="0" Clicked="OnKeyClicked"/>
+                                    <Button x:Name="LetW" Text="w" Style="{StaticResource btnStyle}" Grid.Row="0"  Grid.Column="1" Clicked="OnKeyClicked"/>
+                                    <Button x:Name="LetE" Text="e" Style="{StaticResource btnStyle}" Grid.Row="0"  Grid.Column="2" Clicked="OnKeyClicked"/>
+                                    <Button x:Name="LetR" Text="r" Style="{StaticResource btnStyle}" Grid.Row="0"  Grid.Column="3" Clicked="OnKeyClicked"/>
+                                    <Button x:Name="LetT" Text="t" Style="{StaticResource btnStyle}" Grid.Row="0"  Grid.Column="4" Clicked="OnKeyClicked"/>
+                                    <Button x:Name="LetY" Text="y" Style="{StaticResource btnStyle}" Grid.Row="0"  Grid.Column="5" Clicked="OnKeyClicked"/>
+                                    <Button x:Name="LetU" Text="u" Style="{StaticResource btnStyle}" Grid.Row="0"  Grid.Column="6" Clicked="OnKeyClicked"/>
+                                    <Button x:Name="LetI" Text="i" Style="{StaticResource btnStyle}" Grid.Row="0"  Grid.Column="7" Clicked="OnKeyClicked"/>
+                                    <Button x:Name="LetO" Text="o" Style="{StaticResource btnStyle}" Grid.Row="0"  Grid.Column="8" Clicked="OnKeyClicked"/>
+                                    <Button x:Name="LetP" Text="p" Style="{StaticResource btnStyle}" Grid.Row="0"  Grid.Column="9" Clicked="OnKeyClicked"/>
+                                    <!--<Button Text="Enter" Grid.Row="0"  Grid.Column="10" BackgroundColor="Teal"/>-->
+
+                                    <Button x:Name="btnCaps" Text="C" Grid.Row="1" FontAttributes="Bold" FontSize="22" Grid.Column="0" BackgroundColor="Teal" Clicked="CapsLock_Tap" />
+                                    <Button  x:Name="LetA" Text="a" Style="{StaticResource btnStyle}" Grid.Row="1"  Grid.Column="1" Clicked="OnKeyClicked"/>
+                                    <Button  x:Name="LetS" Text="s" Style="{StaticResource btnStyle}" Grid.Row="1"  Grid.Column="2" Clicked="OnKeyClicked"/>
+                                    <Button  x:Name="LetD" Text="d" Style="{StaticResource btnStyle}" Grid.Row="1"  Grid.Column="3" Clicked="OnKeyClicked"/>
+                                    <Button  x:Name="LetF" Text="f" Style="{StaticResource btnStyle}" Grid.Row="1"  Grid.Column="4" Clicked="OnKeyClicked"/>
+                                    <Button  x:Name="LetG" Text="g" Style="{StaticResource btnStyle}" Grid.Row="1"  Grid.Column="5" Clicked="OnKeyClicked"/>
+                                    <Button  x:Name="LetH" Text="h" Style="{StaticResource btnStyle}" Grid.Row="1"  Grid.Column="6" Clicked="OnKeyClicked"/>
+                                    <Button  x:Name="LetJ" Text="j" Style="{StaticResource btnStyle}" Grid.Row="1"  Grid.Column="7" Clicked="OnKeyClicked"/>
+                                    <Button  x:Name="LetK" Text="k" Style="{StaticResource btnStyle}" Grid.Row="1"  Grid.Column="8" Clicked="OnKeyClicked"/>
+                                    <Button  x:Name="LetL" Text="l" Style="{StaticResource btnStyle}" Grid.Row="1"  Grid.Column="9" Clicked="OnKeyClicked"/>
+                                    <Button Text="Enter" Clicked="Login_Enter_Button_Clicked" FontAttributes="Bold" FontSize="25" Grid.Row="0" Grid.RowSpan="2" Grid.Column="10"   BackgroundColor="Orange"/>
+                                </Grid>
+
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Row="4">
+                                <Grid ColumnSpacing="5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button x:Name="btnShift" Text="S" Grid.Column="0" FontAttributes="Bold" FontSize="22" BackgroundColor="Teal" Clicked="OnKeyShift"/>
+                                    <Button  x:Name="LetZ" Text="z" Style="{StaticResource btnStyle}" Grid.Column="1"  Clicked="OnKeyClicked"/>
+                                    <Button  x:Name="LetX" Text="x" Style="{StaticResource btnStyle}" Grid.Column="2" Clicked="OnKeyClicked"/>
+                                    <Button  x:Name="LetC" Text="c" Style="{StaticResource btnStyle}" Grid.Column="3" Clicked="OnKeyClicked"/>
+                                    <Button  x:Name="LetV" Text="v" Style="{StaticResource btnStyle}" Grid.Column="4" Clicked="OnKeyClicked"/>
+                                    <Button  x:Name="LetB" Text="b" Style="{StaticResource btnStyle}" Grid.Column="5" Clicked="OnKeyClicked"/>
+                                    <Button  x:Name="LetN" Text="n" Style="{StaticResource btnStyle}" Grid.Column="6" Clicked="OnKeyClicked"/>
+                                    <Button  x:Name="LetM" Text="m" Style="{StaticResource btnStyle}" Grid.Column="7" Clicked="OnKeyClicked"/>
+                                    <Button Text="," Grid.Column="8" Style="{StaticResource btnStyle}" Clicked="OnKeyClicked"/>
+                                    <Button Text="." Grid.Column="9" Style="{StaticResource btnStyle}" Clicked="OnKeyClicked"/>
+                                    <Button Text="@" Grid.Column="10" Style="{StaticResource btnStyle}" Clicked="OnKeyClicked"/>
+                                    <Button Text="_" Grid.Column="11" Style="{StaticResource btnStyle}" Clicked="OnKeyClicked"/>
+                                </Grid>
+
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Row="5">
+                                <Grid ColumnSpacing="5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button Text="Clear" Style="{StaticResource btnStyle}" Grid.Column="0" BackgroundColor="Red" Clicked="OnKeyClear"/>
+                                    <Button Text=" " Style="{StaticResource btnStyle}" Grid.Column="1" BackgroundColor="Teal" Clicked="OnKeyClicked"/>
+                                    <Button Text="Close" Style="{StaticResource btnStyle}" Grid.Column="2" BackgroundColor="Red" Clicked="BtnCloseKeyboard"/>
+                                </Grid>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
+                    <!--keyboar section end-->
+
+                </VerticalStackLayout>
+            </Grid>
+
+
+            <Grid x:Name="loadingPage" IsVisible="False">
+                <telerik:RadBorder CornerRadius="30" 
+                BackgroundColor="White" WidthRequest="250" HeightRequest="250" Padding="0,0,0,25">
+                    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                        <Image Source="loading.gif" 
+               HeightRequest="200" 
+               WidthRequest="200" 
+               IsAnimationPlaying="True"
+               HorizontalOptions="Center" 
+               VerticalOptions="Center"/>
+
+                        <!--<Image Source="barcode_scan.png" IsAnimationPlaying="True" HeightRequest="200" WidthRequest="200"/>-->
+                        <Label x:Name="AnimatedLabel" FontAutoScalingEnabled="False"  Text="Please Wait..." VerticalOptions="Center" FontAttributes="Bold" FontSize="18" HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </telerik:RadBorder>
+            </Grid>
+
+        </Grid>
+
+
+    </ContentPage.Content>
+</ContentPage>
